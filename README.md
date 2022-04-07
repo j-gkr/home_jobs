@@ -1,3 +1,3 @@
 # Home Jobs
 
-Ein Haushaltsbuch mit zusätzliche Verwaltung von regelmäßigen Aufgaben. Inklusive API für die mobile App.
+Ein Haushaltsbuch mit zusätzlicher Verwaltung von regelmäßigen Aufgaben. Inklusive API für die mobile App.
