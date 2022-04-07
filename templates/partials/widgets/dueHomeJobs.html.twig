@@ -1,0 +1,47 @@
+{% for group in dueHomeJobGroups %}
+    {% if group.homeJobs is not empty %}
+        <div id="openHomeJobGroup{{ group.id }}" class="col-md-4">
+            <div class="card card-danger card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">{{ group.name }} - Fällige Aufgaben</h3>
+
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body p-0" style="max-height:300px;overflow:auto;">
+                    <ul class="products-list product-list-in-card pl-2 pr-2">
+                        {% for job in group.homeJobs %}
+                            <li class="item">
+                                <div class="product-img">
+                                    <a href="{{ path('profile_show', {'user': job.editor.id}) }}"><img src="{{ asset('storage/avatars/') ~ job.editor.avatarFile|default('avatar-default-icon.png') }}" alt="Bearbeiter" height="50" style="object-fit: cover;" class="img-size-50 img-circle"></a>
+                                </div>
+                                <div class="product-info">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <a href="{{ path('home_job_show', {'homeJob': job.id}) }}" class="product-title">{{ job.name }}</a>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="badge badge-danger float-right"><i class="fa fas fa-clock"></i> Fällig seit {{ job.untilDeadline|date("%d d %H h %i m %s s") }}</span>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <a href="{{ path('home_job_execute', {'homeJob': job.id}) }}" class="btn btn-xs btn-default float-right"><i class="fas fa-check"></i> Erledigt</a>
+                                            <span class="product-description">Fällig gewesen am {{ job.deadline|date('d.m.Y') }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+    {% endif %}
+{% endfor %}

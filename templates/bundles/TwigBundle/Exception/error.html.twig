@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    500 Fehler
+{% endblock %}
+
+{% block page_heading %}
+    <h1>500 Fehlerseite</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="error-page">
+        <h2 class="headline text-danger">500</h2>
+
+        <div class="error-content">
+            <h3><i class="fas fa-exclamation-triangle text-danger"></i> Oops! Etwas ist schief gelaufen!</h3>
+
+            <p>Wir arbeiten daran, den Fehler zu beheben.</p>
+            <p>Kehren Sie doch in der Zwischenzeit zum <a href="{{ path('default') }}">Dashboard</a> zurück.</p>
+
+        </div>
+    </div>
+    <!-- /.error-page -->
+{% endblock %}

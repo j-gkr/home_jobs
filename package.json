@@ -1,0 +1,36 @@
+{
+  "name": "home-jobs-20",
+  "version": "1.0.0",
+  "description": "HomeJobs is a project by Julian Gebker",
+  "main": "webpack.config.js",
+  "directories": {
+    "test": "tests"
+  },
+  "author": "Julian Gebker",
+  "devDependencies": {
+    "@symfony/webpack-encore": "^0.28.3",
+    "node-sass": "*",
+    "sass-loader": "^7.0.1"
+  },
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "dev-server": "encore dev-server",
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.11.2",
+    "admin-lte": "^3.0.0-rc.4",
+    "bootstrap": "^4.3.1",
+    "datatables.net-bs4": "^1.10.20",
+    "jquery": "^3.4.1",
+    "jquery-ui": "^1.12.1",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.11",
+    "popper.js": "^1.15.0",
+    "tempusdominus-bootstrap-4": "^5.1.2",
+    "tempusdominus-core": "^5.0.3"
+  }
+}

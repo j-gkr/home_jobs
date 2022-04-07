@@ -1,0 +1,8 @@
+index:
+    path: /
+    controller: App\Controller\DefaultController::index
+api_login_check:
+    path: /mobile-app/login_check
+gesdinet_jwt_refresh_token:
+    path:     /mobile-app/token/refresh
+    defaults: { _controller: gesdinet.jwtrefreshtoken:refresh }

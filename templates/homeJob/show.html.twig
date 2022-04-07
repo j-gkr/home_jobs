@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Aufgabe
+{% endblock %}
+
+{% block page_heading %}
+    <h1 class="m-0 text-dark">Aufgaben <em>{{ homeJob.name }}</em></h1>
+    <small>Hier siehst du alle Details zur Aufgabe</small>
+{% endblock %}
+
+{% block top_actions %}
+    {% if app.user.id == homeJob.editor.id and homeJob.executionDate is null %}
+    <a href="{{ path('home_job_execute', {'homeJob': homeJob.id}) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-sm fa-check"></i> Aufgabe erledigt</a>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        {% if homeJob.executionDate is not null %}
+        <div class="col-md-12">
+            <div class="alert alert-success">
+                <h4 class="alert-heading">Gut gemacht!</h4>
+                Diese Aufgabe wurde bereits am <strong>{{ homeJob.executionDate|date('d.m.Y') }} um {{ homeJob.executionDate|date('H:i') }} Uhr</strong> erledigt.
+            </div>
+        </div>
+        {% endif %}
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-primary bg-warning">
+                    <div class="card-title">
+                        {{ homeJob.name }}
+                    </div>
+                </div>
+                <div class="card-body">
+                    {{ homeJob.description|raw }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

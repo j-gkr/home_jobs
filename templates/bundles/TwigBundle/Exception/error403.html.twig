@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    403 Fehler
+{% endblock %}
+
+{% block page_heading %}
+    <h1>403 Fehlerseite</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="error-page">
+        <h2 class="headline text-warning"> 403</h2>
+
+        <div class="error-content">
+            <h3><i class="fas fa-exclamation-triangle text-warning"></i> Oops! Zugriff verboten.</h3>
+
+            <p>Auf die angefragte Seite haben Sie keinen Zugriff!</p>
+            <p>Kehren Sie zum <a href="{{ path('default') }}">Dashboard</a> zurück.</p>
+        </div>
+        <!-- /.error-content -->
+    </div>
+    <!-- /.error-page -->
+{% endblock %}

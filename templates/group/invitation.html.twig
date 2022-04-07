@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Einladung
+{% endblock %}
+
+{% block page_heading %}
+    <h1 class="m-0 text-dark">{{ group.name }}</h1>
+    <small>Lade hier weitere Mitglieder ein!</small>
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-12">
+        <div class="card">
+            {{ form_start(form) }}
+            <div class="card-header card-primary bg-primary">
+                <div class="card-title">Neuen Benutzer zur Gruppe einladen</div>
+            </div>
+            <div class="card-body">
+                {{ form_widget(form) }}
+            </div>
+            <div class="card-footer">
+                <input type="submit" value="Einladen" class="btn btn-primary">
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

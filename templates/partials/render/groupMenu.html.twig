@@ -1,0 +1,39 @@
+<!-- Nav Item - Pages Collapse Menu -->
+{% if groups is not null and groups|length > 0 %}
+    <li class="nav-header">GRUPPEN</li>
+
+    {% for group in groups %}
+        <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-home"></i>
+            <p>
+                {{ group.group.name }}
+                <i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ path('scheduled_home_job_index', {'group': group.group.id}) }}"
+                       class="nav-link">
+                        <i class="nav-icon fas fa-check"></i>
+                        <p>Aufgaben</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ path('group_members', {'group': group.group.id}) }}" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>Mitglieder</p>
+                    </a>
+                </li>
+                {% for wallet in group.group.wallets %}
+                <li class="nav-item">
+                    <a href="{{ path('wallet_index', {'wallet': wallet.id}) }}" class="nav-link">
+                        <i class="nav-icon fas fa-dollar-sign"></i>
+                        <p>{{ wallet.name }}</p>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+{% endif %}

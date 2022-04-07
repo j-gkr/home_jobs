@@ -1,0 +1,47 @@
+version: '3'
+services:
+  home-jobs-20-database:
+    container_name: home-jobs-20-database
+    image: percona
+    ports:
+      - "${DOCKER_DB_PORT}:3306"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: ${DOCKER_MYSQL_ALLOW_EMPTY_PASSWORD}
+    volumes:
+      - home-jobs-20-database:/var/lib/mysql
+
+  home-jobs-20-fpm:
+    container_name: home-jobs-20-fpm
+    build: ./docker/fpm
+    ports:
+      - "9090:9000"
+    volumes:
+      - ./:/var/www/html/:cached
+      - /var/www/html/var/cache/
+    environment:
+      XDEBUG_CONFIG: ${DOCKER_XDEBUG_CONFIG}
+      PHP_IDE_CONFIG: ${DOCKER_PHP_IDE_CONFIG}
+
+  home-jobs-20-nginx:
+    container_name: home-jobs-20-nginx
+    build: ./docker/nginx
+    ports:
+      - ${DOCKER_WEB_PORT}:80
+    volumes:
+      - ./:/var/www/html/:cached
+      - /var/www/html/var/cache/
+    environment:
+      VIRTUAL_HOST: ${DOCKER_VIRTUAL_HOST}
+
+  home-jobs-20-encore:
+    container_name: home-jobs-20-encore
+    build: ./docker/encore
+    volumes:
+      - ./:/home/node/app/
+
+#  home-jobs-20-redis:
+#    container_name: home-jobs-20-redis
+#    image: redis:alpine
+
+volumes:
+  home-jobs-20-database:

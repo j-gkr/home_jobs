@@ -1,0 +1,30 @@
+// set if you're also including font-awesome
+$fa-font-path: "../node_modules/@fortawesome/fontawesome-free/webfonts";
+
+@import "../node_modules/@fortawesome/fontawesome-free/scss/fontawesome";
+@import "../node_modules/@fortawesome/fontawesome-free/scss/solid";
+@import "../node_modules/@fortawesome/fontawesome-free/scss/brands";
+@import "../node_modules/@fortawesome/fontawesome-free/scss/regular";
+
+@import "../node_modules/admin-lte/build/scss/AdminLTE";
+
+// Import toastr
+@import "../node_modules/toastr/toastr";
+
+@import "../node_modules/icheck-bootstrap/icheck-bootstrap.min.css";
+
+// Import select2
+@import "../node_modules/select2/src/scss/core";
+
+@import "../node_modules/summernote/dist/summernote-bs4.css";
+@import "../node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css";
+
+
+.profile-user-img-custom {
+  border: 3px solid #adb5bd;
+  margin: 0 auto;
+  padding: 3px;
+  height: 250px;
+  width: 250px;
+  object-fit: cover;
+}

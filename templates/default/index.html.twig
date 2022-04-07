@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+
+{% block page_heading %}
+    <h1 class="m-0 text-dark">Dashboard</h1>
+{% endblock %}
+
+{% block top_actions %}
+    <form class="form-inline">
+        <div class="input-group input-group-sm">
+            <input class="form-control form-control-navbar" type="search" placeholder="Suche..." aria-label="Search">
+            <div class="input-group-append">
+                <button class="btn btn-navbar" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title font-weight-bold text-primary">Herzlich Willkommen, {{ app.user.fullname }}!</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h1>{{ now|date('d.m.Y') }}</h1>
+                </div>
+            </div>
+        </div>
+
+        {{ renderOpenHomeJobs(app.user)|raw }}
+
+        {{ renderDueHomeJobs(app.user)|raw }}
+
+        {{ renderLastExecutedHomeJobs(app.user)|raw }}
+
+        {{ renderGroupMember(app.user)|raw }}
+
+    </div>
+{% endblock %}

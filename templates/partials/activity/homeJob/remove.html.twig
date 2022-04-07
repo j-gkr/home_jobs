@@ -1,0 +1,13 @@
+<div>
+    <i class="fas fa-trash bg-danger"></i>
+
+    <div class="timeline-item">
+        <span class="time"><i class="far fa-clock"></i> {{ activity['loggedAt']|date('d.m.Y H:i') }}</span>
+
+        <h3 class="timeline-header"><a href="{{ path('profile_show', {'user': activity['user_id']}) }}">{{ activity['firstName'] }}</a> hat eine Aufgabe gelöscht!</h3>
+
+        <div class="timeline-body">
+            {{ activity['name'] }}
+        </div>
+    </div>
+</div>

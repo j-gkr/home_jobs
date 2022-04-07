@@ -1,0 +1,73 @@
+{% extends 'security/base.html.twig' %}
+
+{% block content %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+
+    <div class="card">
+    <div class="card-body login-card-body">
+        <p class="login-box-msg">Herzlich Willkommen zurück!</p>
+
+        <form method="post">
+            <div class="input-group mb-3">
+                <input value="{{ last_username }}" name="email" id="email" type="email" class="form-control" placeholder="Ihre E-Mail">
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-envelope"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <input type="password" name="password" id="password" class="form-control" placeholder="Ihr Passwort">
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-lock"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-8">
+                    <div class="icheck-primary">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">
+                            Anmeldedaten speichern
+                        </label>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-4">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Anmelden</button>
+                </div>
+                <!-- /.col -->
+            </div>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+        </form>
+
+            <!--
+            <div class="social-auth-links text-center mb-3">
+                <p>- OR -</p>
+                <a href="#" class="btn btn-block btn-primary">
+                    <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+                </a>
+                <a href="#" class="btn btn-block btn-danger">
+                    <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+                </a>
+            </div>
+             /.social-auth-links -->
+
+            <p class="mb-1">
+                <a href="#">Passwort vergessen?</a>
+            </p>
+            <p class="mb-0">
+                <a href="{{ path('app_register') }}" class="text-center">Jetzt Konto erstellen!</a>
+            </p>
+        </div>
+        <!-- /.login-card-body -->
+    </div>
+{% endblock %}

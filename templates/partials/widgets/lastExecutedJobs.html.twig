@@ -1,0 +1,37 @@
+{% for group in lastExecutedGroups %}
+    {% if group.homeJobs is not empty %}
+        <div id="lastExecutedGroup{{ group.id }}" class="col-md-4">
+            <div class="card card-success card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">{{ group.name }} - Zuletzt abgeschlossene Aufgaben</h3>
+
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body p-0" style="max-height:300px;overflow:auto;">
+                    <ul class="products-list product-list-in-card pl-2 pr-2">
+                        {% for job in group.homeJobs %}
+                            <li class="item">
+                                <div class="product-img">
+                                    <a href="{{ path('profile_show', {'user': job.editor.id}) }}"><img src="{{ asset('storage/avatars/') ~ job.editor.avatarFile|default('avatar-default-icon.png') }}" alt="Bearbeiter" style="object-fit: cover;" class="img-size-50 img-circle"></a>
+                                </div>
+                                <div class="product-info">
+                                    <a href="{{ path('home_job_show', {'homeJob': job.id}) }}" class="product-title">{{ job.name }}</a>
+                                    <span class="product-description">Erledigt am {{ job.executionDate|date('d.m.Y') }}</span>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,36 @@
+<html lang="de">
+    <body>
+        <p>Hallo {{ user.fullName }},</p>
+
+        <p>dies ist eine Erinnerungsmail für deine geplanten Aufgaben.</p>
+
+        {% if dueJobs is not null and dueJobs is not empty %}
+            <p><strong style="color: red;">WICHTIG</strong> - Du hast fällige Aufgaben noch nicht abgeschlossen:</p>
+
+            <ul>
+                {% for job in dueJobs %}
+                    {% set difference = date(job.deadline).diff(now) %}
+
+                    <li>{{ job.name }} ist seit {{ difference|date("%d Tag(en) %H Stunden %i Minuten") }} fällig.</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if homeJobs is not null and homeJobs is not empty %}
+            <p>Folgende Aufgaben stehen auf deiner ToDo-Liste:</p>
+
+            <ul>
+                {% for job in homeJobs %}
+                    {% set difference = date(job.deadline).diff(now) %}
+
+                    <li>{{ job.name }} ist in {{ difference|date("%d Tag(en) %H Stunden %i Minuten") }} fällig</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <p>Viel Erfolg beim Abarbeiten der Aufgaben!</p>
+
+        <p>Mit freundlichen Grüßen</p>
+        <p>Dein HomeJobs Team</p>
+    </body>
+</html>

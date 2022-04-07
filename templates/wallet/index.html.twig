@@ -1,0 +1,182 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Geldbeutel
+{% endblock %}
+
+{% block page_heading %}
+    <h1 class="m-0 text-dark">Geldbeutel der Gruppe <em>{{ wallet.group.name }}</em></h1>
+    <small>Verwalten Sie hier die finanziellen Ausgaben der Gruppe</small>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/datatable.css') }}">
+{% endblock %}
+
+{% block head_javascripts %}
+    <script src="{{ asset('build/datatable.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#payments').DataTable({
+                "ordering": false,
+                "language": {
+                    "lengthMenu": "_MENU_ Einträge anzeigen",
+                    "zeroRecords": "Keine Einträge gefunden",
+                    "info": "Seite _PAGE_ von _PAGES_",
+                    "infoEmpty": "Keine Einträge gefunden",
+                    "infoFiltered": "(gefiltert von _MAX_ Einträgen)",
+                    "search": "Suchen: ",
+                    "paginate": {
+                        "previous": "Vorherige Seite",
+                        "next": "Nächste Seite"
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <a href="{{ path('payment_add', {'wallet': wallet.id}) }}" class="btn btn-primary"><i class="fas fa-plus"></i> Ausgabe erstellen</a>
+                </div>
+                <div class="card-body">
+                    <table id="payments" class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Betrag</th>
+                            <th>Kategorie</th>
+                            <th>Datum</th>
+                            <th>Ersteller</th>
+                            <th>Optionen</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for payment in payments %}
+                            <tr>
+                                <td>{{ payment.name }}</td>
+                                <td class="text-right">{{ payment.amount|number_format(2) }}</td>
+                                <td><span style="background-color: {{ payment.paymentCategory.color }};" class="badge badge-pill">{{ payment.paymentCategory.name }}</span></td>
+                                <td>{{ payment.paymentDate|date('d.m.Y') }}</td>
+                                {% if payment.creator is not null %}
+                                    <td><a href="{{ path('profile_show', {"user": payment.creator.id}) }}">{{ payment.creator.fullName }}</a></td>
+                                {% else %}
+                                    <td>Wiederkehrende Ausgabe</td>
+                                {% endif %}
+                                <td>
+                                    <div class="btn-group btn-group-sm">
+                                        <a class="btn btn-primary" title="Bearbeiten" href="{{ path('payment_edit', {"payment": payment.id}) }}"><i class="fas fa-fw fa-pencil-alt"></i></a>
+                                        <a class="btn btn-danger" title="Entfernen" href="{{ path('payment_remove', {"payment": payment.id}) }}"><i class="fas fa-fw fa-trash"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <th>Name</th>
+                            <th>Betrag</th>
+                            <th>Kategorie</th>
+                            <th>Datum</th>
+                            <th>Ersteller</th>
+                            <th>Optionen</th>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <p class="card-title">Zeitraum auswählen</p>
+                        </div>
+                        <div class="card-body">
+                            <form method="post">
+
+                                <div class="form-group">
+                                    <label for="from">Startzeitpunkt</label>
+                                    <input id="from" name="from" class="form-control" type="date" value="{{ from|date('Y-m-d') }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="to">Endzeitpunkt</label>
+                                    <input id="to" name="to" class="form-control" type="date" value="{{ to|date('Y-m-d') }}">
+                                </div>
+
+                                <input class="btn btn-sm btn-primary" type="submit" value="Zeitraum anwenden">
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% if categories is not empty %}
+                <div class="col-sm-12">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <p class="card-title">
+                                Verteilung - Kategorie
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="pieChart" style="height:230px; min-height:230px"></canvas>
+                        </div>
+                        <div class="card-footer">
+                            <p class="card-title"><strong>SUMME:</strong> {{ totalSum|number_format(2, '.', '') }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        let donutData        = {
+            labels: [
+                {% for category in categories %}
+                    '{{ category[0].name }}',
+                {% endfor %}
+            ],
+            datasets: [
+                {
+                    data: [
+                        {% for category in categories %}
+                            {{ category.sum|number_format(2, '.', '') }},
+                        {% endfor %}
+                    ],
+                    backgroundColor : [
+                        {% for category in categories %}
+                        '{{ category[0].color }}',
+                        {% endfor %}
+                    ],
+                }
+            ]
+        };
+
+        //-------------
+        //- PIE CHART -
+        //-------------
+        // Get context with jQuery - using jQuery's .get() method.
+        let pieChartCanvas = $('#pieChart').get(0).getContext('2d');
+        let pieData        = donutData;
+        let pieOptions     = {
+            maintainAspectRatio : false,
+            responsive : true,
+        };
+        //Create pie or douhnut chart
+        // You can switch between pie and douhnut using the method below.
+        let pieChart = new Chart(pieChartCanvas, {
+            type: 'pie',
+            data: pieData,
+            options: pieOptions
+        });
+    </script>
+{% endblock %}

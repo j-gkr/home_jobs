@@ -1,0 +1,23 @@
+<div>
+    <i class="fas fa-dollar-sign bg-warning"></i>
+
+    <div class="timeline-item">
+        <span class="time"><i class="far fa-clock"></i> {{ activity['loggedAt']|date('d.m.Y H:i') }}</span>
+
+        <h3 class="timeline-header"><a href="{{ path('profile_show', {'user': activity['user_id']}) }}">{{ activity['firstName'] }}</a> hat eine Ausgabe für die Gruppe <strong>{{ activity['group_name'] }}</strong> geändert!</h3>
+
+        <div class="timeline-body">
+            <dl>
+                <dt>Name</dt>
+                <dd>{{ activity['name'] }}</dd>
+                <dt>Betrag</dt>
+                <dd>{{ activity['amount']|number_format(2) }}</dd>
+                <dt>Kategorie</dt>
+                <dd>{{ activity['category'] }}</dd>
+            </dl>
+        </div>
+        <div class="timeline-footer">
+            <a href="{{ path('payment_edit', {'payment': activity['p_id']}) }}" class="btn btn-primary btn-sm">Ausgabe bearbeiten</a>
+        </div>
+    </div>
+</div>

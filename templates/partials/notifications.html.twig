@@ -1,0 +1,36 @@
+{% if app.request.hasPreviousSession %}
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "progressBar": true,
+            "preventDuplicates": false,
+            "positionClass": "toast-top-right",
+            "onclick": null,
+            "showDuration": "500",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+        {% for message in app.flashes('success') %}
+        toastr.success('{{ message|raw }}', "{{ 'Erfolg!' }}");
+        {% endfor %}
+
+        {% for message in app.flashes('error') %}
+        toastr.error('{{ message|raw }}', "{{ 'Fehler!' }}");
+        {% endfor %}
+
+        {% for message in app.flashes('info') %}
+        toastr.info('{{ message|raw }}', "{{ 'Info!' }}");
+        {% endfor %}
+
+        {% for message in app.flashes('warning') %}
+        toastr.warning('{{ message|raw }}', "{{ 'Warnung!'|trans }}");
+        {% endfor %}
+    </script>
+{% endif %}

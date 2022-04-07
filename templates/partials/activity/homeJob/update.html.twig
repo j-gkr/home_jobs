@@ -1,0 +1,16 @@
+<div>
+    <i class="fas fa-sticky-note bg-warning"></i>
+
+    <div class="timeline-item">
+        <span class="time"><i class="far fa-clock"></i> {{ activity['loggedAt']|date('d.m.Y H:i') }}</span>
+
+        <h3 class="timeline-header"><a href="{{ path('profile_show', {'user': activity['user_id']}) }}">{{ activity['firstName'] }}</a> hat eine Aufgabe für die Gruppe <strong>{{ activity['group_name'] }}</strong> erledigt!</h3>
+
+        <div class="timeline-body">
+            {{ activity['name'] }}
+        </div>
+        <div class="timeline-footer">
+            <a href="{{ path('home_job_show', {'homeJob': activity['hj_id']}) }}" class="btn btn-primary btn-sm">Aufgabe anzeigen</a>
+        </div>
+    </div>
+</div>

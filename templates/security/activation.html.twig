@@ -1,0 +1,15 @@
+{% extends 'security/base.html.twig' %}
+
+{% block content %}
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h4>Hallo {{ user.fullName }}!</h4>
+                    <p>Deine Aktivierung war erfolgreich.</p>
+                    <p><a href="{{ path('app_login') }}">Hier</a> geht es zum Login!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

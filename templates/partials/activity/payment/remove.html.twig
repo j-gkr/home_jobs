@@ -1,0 +1,20 @@
+<div>
+    <i class="fas fa-dollar-sign bg-danger"></i>
+
+    <div class="timeline-item">
+        <span class="time"><i class="far fa-clock"></i> {{ activity['loggedAt']|date('d.m.Y H:i') }}</span>
+
+        <h3 class="timeline-header"><a href="{{ path('profile_show', {'user': activity['user_id']}) }}">{{ activity['firstName'] }}</a> hat eine Ausgabe für die Gruppe <strong>{{ activity['group_name'] }}</strong> gelöscht!</h3>
+
+        <div class="timeline-body">
+            <dl>
+                <dt>Name</dt>
+                <dd>{{ activity['name'] }}</dd>
+                <dt>Betrag</dt>
+                <dd>{{ activity['amount']|number_format(2) }}</dd>
+                <dt>Kategorie</dt>
+                <dd>{{ activity['category'] }}</dd>
+            </dl>
+        </div>
+    </div>
+</div>

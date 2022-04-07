@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Gruppe
+{% endblock %}
+
+{% block page_heading %}
+    <h1 class="m-0 text-dark">Gruppe erstellen</h1>
+    <small>Erstelle hier eine neue Gruppe, du bist der Administrator!</small>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                {{ form_start(form) }}
+                <div class="card-body">
+                    {{ form_widget(form) }}
+                </div>
+                <div class="card-footer">
+                    <input type="submit" value="Gruppe erstellen" class="btn btn-primary">
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,8 @@
+controllers:
+    resource: ../../src/Controller/
+    type: annotation
+
+mobile_api:
+    resource: ../../src/Controller/Api/MobileAppController.php
+    type: annotation
+    prefix: /mobile-app

@@ -1,0 +1,8 @@
+# config/packages/flysystem.yaml
+
+flysystem:
+  storages:
+    users.storage:
+      adapter: 'local'
+      options:
+        directory: '%kernel.project_dir%/public/storage/avatars'
